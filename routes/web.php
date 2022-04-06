@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardSettingController;
 use Illuminate\Support\Facades\Route;
 
 
+
 use App\Http\Controllers\Admin\DashboardController as AdminController;
 // use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 /*
@@ -32,6 +33,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/categories/{id}', [CategoryController::class, 'detail'])->name('categories-detail');
 Route::get('/details/{id}', [DetailController::class, 'index'])->name('detail');
+Route::get('/details/{id}', [DetailController::class, 'add'])->name('detail-add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/register/success', [RegisterController::class, 'success'])->name('register-success');
 

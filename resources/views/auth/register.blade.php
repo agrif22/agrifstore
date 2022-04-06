@@ -37,7 +37,7 @@
                     id="email" 
                     type="email" 
                     class="form-control @error('email') is-invalid @enderror" 
-                    :class="{ 'is-invalid' : this.email_unavailable}"
+                    :class="{ 'is-invalid' : this.email_unavailable }"
                     name="email" 
                     value="{{ old('email') }}" 
                     v-model="email"
@@ -170,23 +170,14 @@
         el: "#register",
         mounted() {
           AOS.init();
-          // this.$toasted.error(
-          //   "Maaf, tampaknya email sudah terdaftar pada sistem kami.",
-          //   {
-          //     position: "top-center",
-          //     classname: "rounded",
-          //     duration: 1000,
-          //   }
-          // );
         },
         methods: {
           checkForEmailAvailability: function(){
               var self = this;
-              axios.get('{{ route('api-register-check')}}',{
+              axios.get('{{ route('api-register-check')}}', {
                     params:{
-                      email: this.email
+                      email: self.email
                     }
-
               })
                    .then(function (response){
                       if(response.data == 'Available'){
@@ -195,28 +186,30 @@
                           {
                             position:"top-center",
                             className:"rounded",
-                            duration: 1000
+                            duration: 1000,
                           }
                         );
+
                         self.email_unavailable = false;
-                      }else{
+
+                      } else{
                         self.$toasted.error(
                           "Maaf, Tampaknya email sudah terdaftar pada sistem kami.",
                           {
                             position:"top-center",
                             className:"rounded",
-                            duration: 1000
+                            duration: 1000,
                           }
                         );
                         self.email_unavailable = true;
                       }
 
 
-                    console.log(response);
+                    // console.log(response);
                    });
           }
 
-        }        ,
+        },
         data() {
           return {
           name: "mochamad agus rifqi",

@@ -28,7 +28,7 @@
           </div>
         </div>
       </section>
-      <section class="store-gallery" id="gallery">
+      <section class="store-gallery mb-3" id="gallery">
         <div class="container">
           <div class="row">
             <div class="col-lg-8" data-aos="zoom-in">
@@ -70,16 +70,34 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-8">
-                <h1>Sofa Ternyaman</h1>
-                <div class="owner">By Mochamad Agus Rifqi</div>
-                <div class="price">$1,408</div>
+                <h1>{{ $product->name }}</h1>
+                <div class="owner">By {{ $product->user->store_name }}</div>
+                <div class="price">Rp {{ number_format( $product->price) }}</div>
               </div>
               <div class="col-lg-2" data-aos="zoom-in">
-                <a
-                  href="/cart.html"
+                @auth
+                <form action="{{ route('detail-add', $product->id)}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <button
+                  type="submit"
                   class="btn btn-success px-4 text-white btn-block mb-3"
-                  >Add to Cart</a
-                >
+                  >
+                  Add to Cart
+                  </button>
+                </form>
+                  
+                    
+                @else
+                    
+                <a
+                  href="{{ route('login')}}"
+                  class="btn btn-success px-4 text-white btn-block mb-3"
+                  >
+                  Sign in to add
+                </a>
+
+                @endauth
+                
               </div>
             </div>
           </div>
@@ -88,21 +106,7 @@
           <div class="container">
             <div class="row">
               <div class="col-12 col-lg-8">
-                <p>
-                  The Nike Air Max 720 SE goes bigger than ever before with
-                  Nike's tallest Air unit yet for unimaginable, all-day comfort.
-                  There's super breathable fabrics on the upper, while colours
-                  add a modern edge.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium sequi odit provident tempore quidem ullam neque
-                  quo. Vitae repellat alias error voluptatum. Adipisci, ab
-                  deserunt! Quod voluptatibus ad, debitis ex omnis beatae.
-                  Maxime, nostrum modi, autem ratione dignissimos officiis
-                  tenetur nulla ex delectus repellat atque amet aut, voluptates
-                  exercitationem adipisci.
-                </p>
+               {!! $product->description !!}
               </div>
             </div>
           </div>
@@ -177,22 +181,14 @@
         data: {
           activePhoto: 0,
           photos: [
-            {
-              id: 2,
-              url: "{{ url('/images/products-detail-2.jpg')}}",
-            },
-            {
-              id: 3,
-              url: "{{ url('/images/products-detail-3.jpg')}}",
-            },
-            {
-              id: 4,
-              url: "{{ url('/images/products-detail-4.jpg')}}",
-            },
-            {
-              id: 5,
-              url: "{{ url('/images/products-detail-5.jpg')}}",
-            },
+              @foreach($product->galleries as $gallery){
+
+                id: {{ $gallery->id }},
+                url: "{{ Storage::url($gallery->photos)}}",
+              },
+
+              @endforeach
+            
           ],
         },
 

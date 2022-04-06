@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -22,11 +23,12 @@ class UserRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {   
         return [
         'name' => 'required|string|max:50',
         'email'=> 'required|email|unique:users',
-        'roles' => 'nullable|string|in:ADMIN,USER'
+        'email'=> Rule::unique('users')->ignore($this->user),
+        'roles' => 'nullable|string|in:ADMIN,USER',
         ];
     }
 }
