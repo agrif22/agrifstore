@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'roles',
-        'store',
+        'store_name',
         'categories_id',
         'store_status',
         'address_one',
