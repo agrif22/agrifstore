@@ -121,4 +121,5 @@ Route::prefix('admin')
         Route::resource('user', '\App\Http\Controllers\Admin\UserController');
         Route::resource('product', '\App\Http\Controllers\Admin\ProductController');
         Route::resource('product-gallery', '\App\Http\Controllers\Admin\ProductGalleryController');
+        Route::resource('transaction', '\App\Http\Controllers\Admin\TransactionController');
 });
